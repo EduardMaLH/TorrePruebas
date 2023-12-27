@@ -18,7 +18,5 @@ public class Habilidad {
     @JoinColumn(name = "rango_id")
     private Rango rango;
 
-    @ManyToMany
-    @MapsId("jugador_Id")
-    private Jugador jugador;
+    
 }
