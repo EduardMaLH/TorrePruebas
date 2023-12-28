@@ -19,11 +19,11 @@ public class Jugador {
 
     @ManyToOne
     @JoinColumn(name = "clase_id")
-    private Clase clase_id;
+    private Clase clase;
 
-    @ManyToOne
-    @JoinColumn(name = "rango_id")
-    private Rango rango_id;
+  //  @ManyToOne
+  //  @JoinColumn(name = "rango_id")
+   // private Rango rango_id;
     
    
 

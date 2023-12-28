@@ -11,6 +11,7 @@ import com.repositories.ClaseRepository;
 import com.repositories.JugadorRepository;
 import com.repositories.RangoRepository;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -41,17 +42,17 @@ public class JugadorController {
           return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Jugador no encontrado");
       }
     }
-  //  @GetMapping("/clase/{nombreClase}")
-  //  public ResponseEntity<List<Jugador>> findByClase(@PathVariable Integer clase_id) {
-   // 	  Optional<Clase> clase = (Optional<Clase>) ClaseRepository.findById(clase_id);
-    //	  if (clase.isEmpty()) { 
-    //	        return ResponseEntity.notFound().build();
-    //	    }
+    @GetMapping("/jugadores/{Clase}")
+    public ResponseEntity<List<Jugador>> getJugadoresByClase(@PathVariable Integer Clase_id) {
+    	 List<Jugador> jugadores = JugadorRepository.findByClase_id(Clase_id);
 
-    	    
-    //	    List<Jugador> jugadores = JugadorRepository.findByClase(null);
-    //	    return ResponseEntity.ok(jugadores);
-   // }
+        if (!jugadores.isEmpty()) {
+            return ResponseEntity.ok(jugadores);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Collections.emptyList());
+        }
+    }
+
   
 }
 
