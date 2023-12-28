@@ -13,6 +13,7 @@ import com.repositories.RangoRepository;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/jugadores")
@@ -31,25 +32,26 @@ public class JugadorController {
     public ResponseEntity<String> login(@RequestBody Map<String, String> requestBody) {
         
       String nombre = requestBody.get("nombre");
+      Jugador jugador = JugadorRepository.findNuuidByNombre(nombre);
   
-  String nuuid = JugadorRepository.findNuuidByNombre(nombre);
 
-        if (nuuid != null) {
-            return ResponseEntity.ok(nuuid);
-        } else {
-           
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Jugador no encontrado");
-        }
+      if (jugador != null && jugador.getNuuid() != null) {
+          return ResponseEntity.ok(jugador.getNuuid());
+      } else {
+          return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Jugador no encontrado");
+      }
     }
-    @GetMapping("/clase/{nombreClase}")
-    public ResponseEntity<List<Jugador>> getJugadoresPorClase(@PathVariable String nombreClase) {
-        Clase clase = ClaseRepository.findByNombre(nombreClase);
-        if (clase == null) { 
-            return ResponseEntity.notFound().build();
-        }
-        List<Jugador> jugadores = JugadorRepository.findByClase(clase);
-        return ResponseEntity.ok(jugadores);
-    }
+  //  @GetMapping("/clase/{nombreClase}")
+  //  public ResponseEntity<List<Jugador>> findByClase(@PathVariable Integer clase_id) {
+   // 	  Optional<Clase> clase = (Optional<Clase>) ClaseRepository.findById(clase_id);
+    //	  if (clase.isEmpty()) { 
+    //	        return ResponseEntity.notFound().build();
+    //	    }
+
+    	    
+    //	    List<Jugador> jugadores = JugadorRepository.findByClase(null);
+    //	    return ResponseEntity.ok(jugadores);
+   // }
   
 }
 

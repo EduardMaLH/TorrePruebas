@@ -9,9 +9,8 @@ public class Clase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
     private String descripcion;
     private String nuuid;
-private String nombre;
+    
   
 }

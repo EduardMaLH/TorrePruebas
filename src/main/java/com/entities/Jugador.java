@@ -11,7 +11,6 @@ public class Jugador {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
     private String nombre;
     private Date fechaNacimiento;
     private String descripcion;
@@ -20,11 +19,11 @@ public class Jugador {
 
     @ManyToOne
     @JoinColumn(name = "clase_id")
-    private Clase clase;
+    private Clase clase_id;
 
     @ManyToOne
     @JoinColumn(name = "rango_id")
-    private Rango rango;
+    private Rango rango_id;
     
    
 

@@ -11,8 +11,8 @@ import com.entities.Rango;
 import java.util.List;
 
 public interface JugadorRepository extends JpaRepository<Jugador, Integer> {
-    List<Jugador> findByClase(Clase clase);
-    List<Jugador> findByRango(Rango rango);
-   String findNuuidByNombre( String nombre);
+   // List<Jugador> findByClase(Clase clase_id);
+  //  List<Jugador> findByRango(Rango rango_id);
+	Jugador findNuuidByNombre( String nombre);
 }
 
