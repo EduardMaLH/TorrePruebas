@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.entities.Clase;
 import com.entities.Jugador;
 import com.repositories.ClaseRepository;
 import com.repositories.JugadorRepository;
@@ -18,7 +19,9 @@ import java.util.Map;
 public class JugadorController {
 
     @Autowired
-    private JugadorRepository jugadorRepository;
+    private JugadorRepository JugadorRepository;
+    @Autowired
+    private ClaseRepository ClaseRepository;
 
     @GetMapping("/status")
     public String getStatus() {
@@ -27,12 +30,10 @@ public class JugadorController {
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody Map<String, String> requestBody) {
         
-        String nombre = requestBody.get("nombre");
+      String nombre = requestBody.get("nombre");
+  
+  String nuuid = JugadorRepository.findNuuidByNombre(nombre);
 
-        
-        String nuuid = jugadorRepository.findNuuidByNombre(nombre);
-
-       
         if (nuuid != null) {
             return ResponseEntity.ok(nuuid);
         } else {
@@ -40,7 +41,15 @@ public class JugadorController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Jugador no encontrado");
         }
     }
-
+    @GetMapping("/clase/{nombreClase}")
+    public ResponseEntity<List<Jugador>> getJugadoresPorClase(@PathVariable String nombreClase) {
+        Clase clase = ClaseRepository.findByNombre(nombreClase);
+        if (clase == null) { 
+            return ResponseEntity.notFound().build();
+        }
+        List<Jugador> jugadores = JugadorRepository.findByClase(clase);
+        return ResponseEntity.ok(jugadores);
+    }
   
 }
 
