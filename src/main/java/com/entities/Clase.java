@@ -12,6 +12,6 @@ public class Clase {
 
     private String descripcion;
     private String nuuid;
-
+private String nombre;
   
 }
